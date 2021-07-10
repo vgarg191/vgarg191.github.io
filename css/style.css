@@ -22,6 +22,8 @@ body {
   font-family: 'Lato', sans-serif;
   color: #000;
   font-size: 18px;
+  position: relative;
+  height: 100vh;
 }
 
 h1 {
@@ -96,6 +98,11 @@ section {
   padding: 20px 16px;
 }
 
+.person-icon {
+  height: 23px;
+  width: 20px;
+}
+
 /* ************************************************************
 ***************************************************************
 --- Search Form ---
@@ -114,6 +121,10 @@ section {
   -webkit-appearance: none;
   width: 180px;
   margin-left: 20px;
+}
+
+.btn-form-submit:active {
+  background-color: #F6BC25;
 }
 
 .input-group > .form-control {
@@ -181,6 +192,16 @@ section {
 --- [SECTION] Above the Fold ---
 ***************************************************************
 ************************************************************ */
+
+.loading img {
+  width: 154px;
+  height: 154px;
+}
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .above-the-fold {
   background: #004A80;
@@ -270,6 +291,40 @@ section {
     font-size: 26.88px;
     margin-right: 10.6px;
   }
+}
+
+@media (max-width: 480px) {
+  .list-item-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .list-item-container :nth-child(1) {
+    order: 1;
+  }
+  .list-item-container :nth-child(2) {
+    order: 4;
+  }
+  .list-item-container :nth-child(3) {
+    order: 2;
+  }
+  .list-item-container :nth-child(4) {
+    order: 5;
+  }
+  .list-item-container :nth-child(5) {
+    order: 3;
+  }
+  .list-item-container :nth-child(6) {
+    order: 6;
+  }
+  .loading img {
+    width: 124px;
+    height: 124px;
+  }
+  
+.input-group.error .error-msg {
+  position: static;
+  bottom: 30px;
+}
 }
 
 /* ************************************************************
@@ -368,6 +423,8 @@ section {
 
 .footer {
   padding: 16px 0;
+  bottom: 0px;
+  width: 100%;
 }
 
 .footer p {

@@ -3,17 +3,9 @@ $(document).ready(function () {
   $("#btn-search").on("click", function (e) {
     e.preventDefault();
     localStorage.clear(); //Clears storage for next request
-    email = $('input[type="text"]').val().toLowerCase();
+    var email = $('input[type="text"]').val().toLowerCase();
 
-    var x, y;
-    regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    if (email.match(regEx)) {
-      x = true;
-    } else {
-      x = false;
-    }
-
-    if (x === true) {
+    if (isEmailValid()) {
       document.querySelector('input[type="text"]').parentNode.classList.remove("error");
       const proxyurl = "";
       const url =
@@ -22,7 +14,12 @@ $(document).ready(function () {
         .then((response) => response.text())
         .then(function (contents) {
           localStorage.setItem("userObject", contents);
-          window.location.href = "result.html";
+        $('.loading').css({"height": "100vh","display":"flex","flex-direction":"column"}).prepend('<div><img src="assets/img/loading_spinner.gif"/></div> <div>Please wait a moment...</div>');
+        $('.not-loading').remove();
+           setTimeout(() => {
+             $('.loading').remove();
+            window.location.href = "result.html";
+             }, 3000);
         })
         .catch((e) => console.log(e));
     } else if (x !== true) {
@@ -69,3 +66,8 @@ $(document).ready(function () {
   });
 
 });
+
+function isEmailValid() {
+ let regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+ return email.match(regEx);
+}
