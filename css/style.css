@@ -98,11 +98,6 @@ section {
   padding: 20px 16px;
 }
 
-.person-icon {
-  height: 23px;
-  width: 20px;
-}
-
 /* ************************************************************
 ***************************************************************
 --- Search Form ---
@@ -140,6 +135,7 @@ section {
   border-radius: 3px 3px 0 0 !important;
 }
 
+
 .error-msg {
   display: none;
 }
@@ -169,6 +165,47 @@ section {
   color: #FFF;
   margin: 0 0 0 15px;
   line-height: normal;
+}
+
+.search-tabs {
+  display: flex;
+  width:480px;
+  align-items:center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+
+.search-type{
+  font-family: Lato;
+color: #FFFFFF;
+letter-spacing: 0;
+font-weight: 400;
+}
+
+.selection {
+  letter-spacing: 0;
+  font-weight: 700;
+ 
+}
+
+.select-email {
+font-family: Lato; 
+padding: 8px 15px 8px 8px;
+border-radius: 6px;
+background: #F6BC25;
+color: #004A80;
+cursor: pointer;
+}
+
+.select-phone {
+font-family: Lato;
+padding: 8px 12px 8px 8px;
+color: #F6BC25;
+
+border: 3px solid #F6BC25;
+border-radius: 6px;
+cursor: pointer;
 }
 
 @media (max-width: 767px) {
@@ -211,6 +248,41 @@ section {
 .above-the-fold .headline {
   max-width: 780px;
   margin: 0 auto;
+}
+
+.not-selected{
+  background:#004A80 ;
+	border: 2px solid #F6BC25;
+  color:#F6BC25 ;
+}
+
+.arrow_box {
+	position: relative;
+  background:#F6BC25 ;
+  color: #004A80;
+}
+
+.arrow_box:after, .arrow_box:before {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: "";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-top-color: #F6BC25;
+	border-width: 10px;
+	margin-left: -30px;
+}
+.arrow_box:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-top-color: #F6BC25;
+	margin-left: -16px;
 }
 
 /* ************************************************************
@@ -298,24 +370,11 @@ section {
     display: flex;
     flex-direction: row;
   }
-  .list-item-container :nth-child(1) {
+
+  .list-item-container :nth-child(even) {
     order: 1;
   }
-  .list-item-container :nth-child(2) {
-    order: 4;
-  }
-  .list-item-container :nth-child(3) {
-    order: 2;
-  }
-  .list-item-container :nth-child(4) {
-    order: 5;
-  }
-  .list-item-container :nth-child(5) {
-    order: 3;
-  }
-  .list-item-container :nth-child(6) {
-    order: 6;
-  }
+
   .loading img {
     width: 124px;
     height: 124px;
@@ -325,6 +384,17 @@ section {
   position: static;
   bottom: 30px;
 }
+
+.search-tabs {
+  font-size: 14px ;
+  white-space: nowrap;
+  width:unset;
+}
+
+.search-type {
+  display: none;
+}
+
 }
 
 /* ************************************************************
