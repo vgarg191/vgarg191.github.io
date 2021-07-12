@@ -3,6 +3,7 @@
 --------------------------------------------------------
 --| General
 --| Navbar
+--| loader
 --| Search Form
 --| [SECTION] Above the Fold 
 --| [SECTION] Features
@@ -100,6 +101,35 @@ section {
 
 /* ************************************************************
 ***************************************************************
+--- loader ---
+***************************************************************
+************************************************************ */
+
+.loading img {
+  width: 154px;
+  height: 154px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 480px) {
+  .input-group.error .error-msg {
+    position: static;
+    bottom: 30px;
+  }
+
+  .loading img {
+    width: 124px;
+    height: 124px;
+  }
+}
+
+/* ************************************************************
+***************************************************************
 --- Search Form ---
 ***************************************************************
 ************************************************************ */
@@ -177,7 +207,7 @@ section {
 }
 
 .search-type{
-  font-family: Lato;
+font-family: Lato;
 color: #FFFFFF;
 letter-spacing: 0;
 font-weight: 400;
@@ -186,26 +216,20 @@ font-weight: 400;
 .selection {
   letter-spacing: 0;
   font-weight: 700;
- 
+  cursor: pointer;
+  border-radius: 6px;
 }
 
-.select-email {
-font-family: Lato; 
+.select-email { 
 padding: 8px 15px 8px 8px;
-border-radius: 6px;
 background: #F6BC25;
 color: #004A80;
-cursor: pointer;
 }
 
 .select-phone {
-font-family: Lato;
 padding: 8px 12px 8px 8px;
 color: #F6BC25;
-
 border: 3px solid #F6BC25;
-border-radius: 6px;
-cursor: pointer;
 }
 
 @media (max-width: 767px) {
@@ -224,21 +248,23 @@ cursor: pointer;
   }
 }
 
+@media (max-width: 480px) {
+  .search-tabs {
+    font-size: 14px ;
+    white-space: nowrap;
+    width:unset;
+  }
+  
+  .search-type {
+    display: none;
+  }
+}
+
 /* ************************************************************
 ***************************************************************
 --- [SECTION] Above the Fold ---
 ***************************************************************
 ************************************************************ */
-
-.loading img {
-  width: 154px;
-  height: 154px;
-}
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .above-the-fold {
   background: #004A80;
@@ -374,26 +400,6 @@ cursor: pointer;
   .list-item-container :nth-child(even) {
     order: 1;
   }
-
-  .loading img {
-    width: 124px;
-    height: 124px;
-  }
-  
-.input-group.error .error-msg {
-  position: static;
-  bottom: 30px;
-}
-
-.search-tabs {
-  font-size: 14px ;
-  white-space: nowrap;
-  width:unset;
-}
-
-.search-type {
-  display: none;
-}
 
 }
 
