@@ -1,5 +1,4 @@
-(function() {
- $(function () {
+(function () {
   /**
    * Gets an object and sets its content into the result card in the result page
    * If there's no content in the JSON object, makes sure to tell the user
@@ -7,7 +6,7 @@
   if (window.localStorage) {
     if (localStorage.userObject) {
       let user_object = localStorage.getItem('userObject');
-      let  resultCountElement = $('#result-count');
+      let resultCountElement = $('#result-count');
       retreivedObject = JSON.parse(user_object); //parses the retrieved object into an JSON object
 
       if (JSON.stringify(retreivedObject) == '[]') {
@@ -45,5 +44,4 @@
     }
   }
 }
-)
-})();
+)();
