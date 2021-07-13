@@ -1,4 +1,5 @@
- ($(function () {
+(function() {
+ $(function () {
   /**
    * Gets an object and sets its content into the result card in the result page
    * If there's no content in the JSON object, makes sure to tell the user
@@ -43,4 +44,6 @@
       }
     }
   }
-}))();
+}
+)
+})();
