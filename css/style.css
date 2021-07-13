@@ -114,6 +114,13 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #F8F8F8;
+}
+
+.loading-start {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 480px) {
@@ -121,7 +128,6 @@ section {
     position: static;
     bottom: 30px;
   }
-
   .loading img {
     width: 124px;
     height: 124px;
@@ -254,7 +260,6 @@ border: 3px solid #F6BC25;
     white-space: nowrap;
     width:unset;
   }
-  
   .search-type {
     display: none;
   }
@@ -303,8 +308,9 @@ border: 3px solid #F6BC25;
 	border-color: rgba(136, 183, 213, 0);
 	border-top-color: #F6BC25;
 	border-width: 10px;
-	margin-left: -30px;
+	margin-left: -15px;
 }
+
 .arrow_box:before {
 	border-color: rgba(194, 225, 245, 0);
 	border-top-color: #F6BC25;
@@ -396,7 +402,6 @@ border: 3px solid #F6BC25;
     display: flex;
     flex-direction: row;
   }
-
   .list-item-container :nth-child(even) {
     order: 1;
   }

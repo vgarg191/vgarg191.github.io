@@ -1,4 +1,4 @@
-$(document).ready(function () {
+ ($(function () {
   /**
    * Gets an object and sets its content into the result card in the result page
    * If there's no content in the JSON object, makes sure to tell the user
@@ -6,15 +6,16 @@ $(document).ready(function () {
   if (window.localStorage) {
     if (localStorage.userObject) {
       let user_object = localStorage.getItem('userObject');
+      let  resultCountElement = $('#result-count');
       retreivedObject = JSON.parse(user_object); //parses the retrieved object into an JSON object
 
       if (JSON.stringify(retreivedObject) == '[]') {
-        $('#result-count').text('0 Results');
+        resultCountElement.text('0 Results');
         $('.result-desc').text(
           'Try starting a new search below'
         );
       } else {
-        $('#result-count').text('1 Result');
+        resultCountElement.text('1 Result');
         $('#result-subtext').html('Look at the result below to see the details of the person you’re searched for.');
         $('.name').append(
           `${retreivedObject.first_name} ${retreivedObject.last_name}`
@@ -42,4 +43,4 @@ $(document).ready(function () {
       }
     }
   }
-});
+}))();

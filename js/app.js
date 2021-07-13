@@ -1,29 +1,31 @@
+(function() {
 
-$(document).ready(function () {
+  $(function() {
 
   var selectedInputType = 'email';
   var selectEmailElement = $('.select-email');
   var selectPhoneElement = $('.select-phone');
-  var searchBoxInputElement =  $('input[type=text]');
-  
+  var searchBoxInputElement = $('input[type=text]');
+  var errorMessageElement = $('.error-msg');
+  var searchPlaceholderElement =  $('.search-placeholder');
   selectEmailElement.addClass('arrow_box');
 
   // click on email tab for entering email value in search box
 
   selectEmailElement.on('click', function (e) {
-   selectedInputType = 'email';
+    selectedInputType = 'email';
 
-   $('.error-msg').text('Please enter a valid email address');
-   $('.search-placeholder').attr('placeholder', 'Enter an Email Address');
-   selectEmailElement.addClass('arrow_box');
-  selectPhoneElement.removeClass('arrow_box').addClass('not-selected');
+    errorMessageElement.text('Please enter a valid email address');
+    searchPlaceholderElement.attr('placeholder', 'Enter an Email Address');
+    selectEmailElement.addClass('arrow_box');
+    selectPhoneElement.removeClass('arrow_box').addClass('not-selected');
   });
 
   selectPhoneElement.on('click', function (e) {
     selectedInputType = 'phoneInput';
-    $('.error-msg').text('Please enter a valid phone number');
-    $('.search-placeholder').attr('placeholder', 'Enter Phone Number');
-   selectPhoneElement.addClass('arrow_box');
+    errorMessageElement.text('Please enter a valid phone number');
+    searchPlaceholderElement.attr('placeholder', 'Enter Phone Number');
+    selectPhoneElement.addClass('arrow_box');
     selectEmailElement.removeClass('arrow_box').addClass('not-selected');
   });
 
@@ -32,47 +34,52 @@ $(document).ready(function () {
     localStorage.clear(); //Clears storage for next request
     var inputValue = searchBoxInputElement.val().toLowerCase();
 
-    if ( selectedInputType === 'email' && isEmailValid(inputValue)) {
-        searchEmailOrNumber('email', inputValue);
-    } else if ( selectedInputType === 'phoneInput' && isPhoneNumberValid(inputValue)) {
-      searchEmailOrNumber('phone', inputValue);
+    if (selectedInputType === 'email' && isEmailValid(inputValue)) {
+      startSeach('email', inputValue);
+    } else if (selectedInputType === 'phoneInput' && isPhoneNumberValid(inputValue)) {
+      startSeach('phone', inputValue);
     } else {
-       searchBoxInputElement.parent().addClass('error');
+      searchBoxInputElement.parent().addClass('error');
     }
   });
 
   searchBoxInputElement.keyup(function (event) {
-    inputValue = searchBoxInputElement.val().toLowerCase();
-    
-    if ( isEmailValid(inputValue) || isPhoneNumberValid(inputValue)) {
-     searchBoxInputElement.parent().removeClass('error');
-    }
-
-    keycode = (event.keyCode ? event.keyCode : event.which);
-   
-    if (keycode === 13) {
-      /**
-       * Makes a request to ltv API to search an specific email address.
-       * If there's a response, it gets stored in the local storage and redirects to results page
-       */
-      event.preventDefault();
-      localStorage.clear(); //Clears storage for next request
-
-      if (selectedInputType === 'email' && isEmailValid(inputValue)) {
-        searchEmailOrNumber('email', inputValue);
-      } else if (selectedInputType === 'phoneInput' && isPhoneNumberValid(inputValue)) {
-        searchEmailOrNumber('phone', inputValue);
-      } else {
-       searchBoxInputElement.parentNode.classList.add('error');
-      }
-    }
+    onKeyPress(event, searchBoxInputElement);
   });
+
 });
+
+/** run on every key press to remove error message if email or phone number is valid 
+ * on enter key press and if input value is valid, make a API call
+ */
+function onKeyPress(event, searchBoxInputElement) {
+inputValue = searchBoxInputElement.val().toLowerCase();
+
+if (isEmailValid(inputValue) || isPhoneNumberValid(inputValue)) {
+  searchBoxInputElement.parent().removeClass('error');
+}
+
+keycode = (event.keyCode ? event.keyCode : event.which);
+
+if (keycode === 13) {
+
+  event.preventDefault();
+  localStorage.clear(); //Clears storage for next request
+
+  if (selectedInputType === 'email' && isEmailValid(inputValue)) {
+    startSeach('email', inputValue);
+  } else if (selectedInputType === 'phoneInput' && isPhoneNumberValid(inputValue)) {
+    startSeach('phone', inputValue);
+  } else {
+    searchBoxInputElement.parentNode.classList.add('error');
+  }
+}
+}
 
 // check if email address is vaild or not 
 function isEmailValid(email) {
- let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
- return email.match(emailRegex);
+  let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  return email.match(emailRegex);
 }
 
 // check if phone number is vaild or not 
@@ -82,23 +89,26 @@ function isPhoneNumberValid(phoneNumber) {
 }
 
 /**
-       * Makes a request to ltv API to search an specific email address oe phone number.
-       * If there's a response, it gets stored in the local storage and redirects to results page
-       */
-function searchEmailOrNumber( numberOrEmail, inputValue) {
+* Makes a request to ltv API to search an specific email address or phone number.
+* If there's a response, it gets stored in the local storage and redirects to results page
+*/
+function startSeach(typeOfSeach, inputValue) {
+  let loadingElement = $('.loading');
+
   $('input[type=text]').parent().removeClass('error');
-    const proxyurl = '';
-    const url =
-      `https://ltv-data-api.herokuapp.com/api/v1/records.json?${numberOrEmail}=${inputValue}`;
-    fetch(proxyurl + url)
-      .then((response) => response.text())
-      .then(function (contents) {
-        localStorage.setItem('userObject', contents);
-        // add loader
-      $('.loading').css({'height': '100vh','display':'flex','flex-direction':'column'}).prepend('<div><img src="assets/img/loading_spinner.gif"/></div> <div>Please wait a moment...</div>');
+  loadingElement.prepend('<div><img src="assets/img/loading_spinner.gif"/></div> <div>Please wait a moment...</div>');
+  loadingElement.addClass('loading-start');
+
+  const url =
+    `https://ltv-data-api.herokuapp.com/api/v1/records.json?${typeOfSeach}=${inputValue}`;
+    fetch(url)
+    .then((response) => response.text())
+    .then(function (contents) {
+      localStorage.setItem('userObject', contents);
       $('.not-loading').remove();
-      $('.loading').remove();
-        window.location.href = 'result.html';
-      })
-      .catch((e) => console.log(e));
-  }
+      loadingElement.remove();
+      window.location.href = 'result.html';
+    })
+    .catch((e) => console.log(e));
+}
+})();
