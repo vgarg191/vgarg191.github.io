@@ -194,7 +194,6 @@ section {
 
 .search-tabs {
   display: flex;
-  width: 480px;
   align-items: center;
   margin-bottom: 25px;
   font-size: 16px;
